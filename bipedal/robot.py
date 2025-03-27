@@ -146,7 +146,7 @@ class Bipedal(Robot):
 
         wa = [R[i].dot(self._a[i]) for i in range(len(R))]
 
-        Jp = np.vstack((  np.hstack((np.cross( wa[i],(p[5]-p[i])), wa[i])) for i in range(len(wa)-1)))
+        Jp = np.vstack([np.hstack((np.cross(wa[i],(p[5]-p[i])), wa[i])) for i in range(len(wa)-1)])
         J = np.vstack(( Jp, np.hstack((zero_v, wa[5])) )).T
 
         return J

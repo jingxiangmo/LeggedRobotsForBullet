@@ -83,7 +83,9 @@ class PreviewControl:
         self.py_ref_log = np.append(self.py_ref_log, input_py_ref)
 
         CoMTrajectory = np.empty((0,3), float)
-        startRobotVelocity = np.array([self.x[1],self.y[1]])
+        x_vel = float(self.x[1]) if isinstance(self.x[1], (list, np.ndarray)) else self.x[1]
+        y_vel = float(self.y[1]) if isinstance(self.y[1], (list, np.ndarray)) else self.y[1]
+        startRobotVelocity = np.array([x_vel, y_vel])
         for k in range(len(input_px_ref)):
             dpx_ref = self.px_ref[k+1] - self.px_ref[k]
             dpy_ref = self.py_ref[k+1] - self.py_ref[k]
@@ -119,7 +121,9 @@ class PreviewControl:
             self.px = np.append(self.px, self.C*self.x)
             self.py = np.append(self.py, self.C*self.y) 
 
-        robotEndVelocity = np.array([self.x[1],self.y[1],0.])
+        x_vel = float(self.x[1]) if isinstance(self.x[1], (list, np.ndarray)) else self.x[1]
+        y_vel = float(self.y[1]) if isinstance(self.y[1], (list, np.ndarray)) else self.y[1]
+        robotEndVelocity = np.array([x_vel, y_vel, 0.])
 
         leftTrj,rightTrj = self.footTrajectoryGenerator(np.hstack((self.footPrints[currentFootStep,self.swingLeg], 0.)),
                                                         np.hstack((self.footPrints[currentFootStep+1,self.swingLeg], 0.)),
